@@ -4,8 +4,6 @@
         <jta-data-source>jdbc/UsersDB</jta-data-source>
         <class>com.project.db.entities.Profile</class>
         <class>com.project.db.entities.User</class>
-        <class>com.project.db.entities.Shift</class>
-        <class>com.project.db.entities.UserShift</class>
         <class>com.project.db.entities.AvailableShifts</class>
         <class>com.project.db.entities.Constrains</class>
         <class>com.project.db.entities.ConstraintType</class>
