@@ -108,4 +108,6 @@ import java.util.Objects;
     public int hashCode() {
         return Objects.hash(constraintId, typeId, uid, data, permanentFlag, weekNumber, startDate, endDate);
     }
+    //create is empty methods for fields
+
 }
