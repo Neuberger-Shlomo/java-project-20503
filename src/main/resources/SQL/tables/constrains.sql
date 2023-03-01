@@ -19,5 +19,10 @@ alter table "Constrains"
     add constraint "Constrains_Constraint_type_type_id_fk"
         foreign key (type_id) references "Constraint_type";
 
+alter table "Constrains"
+alter column data type varchar using data::varchar;
+
+alter table "Constrains"
+    alter column data set not null;
 
 
