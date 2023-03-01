@@ -4,15 +4,11 @@ package com.project.db.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.project.db.entities.*;
 import java.util.List;
 
 
 
 import com.project.db.entities.AvailableShifts;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Stateless
 public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
@@ -39,7 +35,7 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .setParameter("shifts_id",id)
                 .getSingleResult();
     }
-    @Override
+
     public void saveShift(AvailableShifts shift) {
         entityManager.persist(shift);
     }
