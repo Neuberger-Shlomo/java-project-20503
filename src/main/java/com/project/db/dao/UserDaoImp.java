@@ -87,7 +87,7 @@ public class UserDaoImp implements UserDao{
      */
     @Nullable
     @Override
-    public User getById(int id) {
+    public User getById(long id) {
         return entityManager
                 .createNamedQuery(Queries.UserQueries.GET_BY_ID,User.class)
                 .setParameter("id",id)
