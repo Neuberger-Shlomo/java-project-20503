@@ -31,11 +31,7 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .getSingleResult();
     }
 
-    public void saveShift(AvailableShifts shift) {
-        entityManager.persist(shift);
-    }
-
-   //
+    @Override
     public boolean validate(AvailableShifts availableShifts)  {
 
         /*

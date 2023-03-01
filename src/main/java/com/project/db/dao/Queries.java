@@ -34,38 +34,12 @@ public class Queries {
 
     public class AvailableShiftsQueries {
 
-        @PersistenceContext
-        private EntityManager entityManager;
-
-        public List<AvailableShifts> getShiftsByWeekNumber(Integer weekNumber) {
-            String hql = "FROM AvailableShifts WHERE weekNumber = :weekNumber";
-            return entityManager.createQuery(hql, AvailableShifts.class)
-                    .setParameter("weekNumber", weekNumber)
-                    .getResultList();
-        }
-
-        public List<AvailableShifts> getShiftsByDayNumber(Integer dayNumber) {
-            String hql = "FROM AvailableShifts WHERE dayNumber = :dayNumber";
-            return entityManager.createQuery(hql, AvailableShifts.class)
-                    .setParameter("dayNumber", dayNumber)
-                    .getResultList();
-        }
-
-        public List<AvailableShifts> getShiftsByTimeFrame(String startHour, String endHour) {
-            String hql = "FROM AvailableShifts WHERE startHour = :startHour AND endHour = :endHour";
-            return entityManager.createQuery(hql, AvailableShifts.class)
-                    .setParameter("startHour", startHour)
-                    .setParameter("endHour", endHour)
-                    .getResultList();
-        }
     }
 
     public static class ConstrainsQueries{
-        public final static String GET_ALL = "C.GetAll";
 
     }
     public static class ConstrainsTypeQueries{
-        public final static String GET_ALL = "Profile.GetAll";
 
     }
 

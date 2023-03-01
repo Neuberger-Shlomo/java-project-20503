@@ -32,6 +32,14 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
                 .setParameter("constraint_type_id",typeId)
                 .getSingleResult().getConstraintLevel();
     }
+    @Override
+    public ConstraintType getById(long id) {
+        return entityManager
+                .createQuery("SELECT c FROM ConstraintType c WHERE ConstraintType.typeId=: constraint_type_id ORDER BY c.typeId",ConstraintType.class)
+                .setParameter("constraint_type_id",id)
+                .getSingleResult();
+    }
+
 
 
 
@@ -76,10 +84,7 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
 
         return true;
     }
-
-
-
-
+    @Override
     public List<ConstraintType> getAll() {
         String query = "SELECT c FROM ConstraintType c";
         return entityManager.createQuery(query, ConstraintType.class).getResultList();
@@ -95,13 +100,6 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
     public void delete(ConstraintType u) {entityManager.remove(entityManager.merge(u));
     }
 
-    @Override
-    public ConstraintType getById(long id) {
-        return entityManager
-                .createQuery("SELECT c FROM ConstraintType c WHERE ConstraintType.typeId=: constraint_type_id ORDER BY c.typeId",ConstraintType.class)
-                .setParameter("constraint_type_id",id)
-                .getSingleResult();
-    }
 
 
 /*
