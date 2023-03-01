@@ -17,7 +17,7 @@ import java.util.Objects;
         private Integer uid;
         @Basic
         @Column(name = "data", nullable = false)
-        private Integer data;//change to string
+        private String data;
         @Basic
         @Column(name = "permanent_flag", nullable = false)
         private Boolean permanentFlag;
@@ -55,11 +55,11 @@ import java.util.Objects;
         this.uid = uid;
     }
 
-    public Integer getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Integer data) {
+    public void setData(String data) {
         this.data = data;
     }
 
