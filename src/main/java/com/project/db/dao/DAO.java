@@ -24,5 +24,5 @@ public interface DAO <T>{
     public void delete(T u);
 
     @Nullable
-    public T getById(@NotNull int id);
+    public T getById(@NotNull long id);
 }
