@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Available_shifts", schema = "public", catalog = "project")
+@Table(name = "AvailableShifts", schema = "public", catalog = "project")
 public class AvailableShifts {
     @Basic
     @Column(name = "week_number", nullable = false)
@@ -16,6 +16,7 @@ public class AvailableShifts {
     @Basic
     @Column(name = "start_hour", nullable = false, length = -1)
     private String startHour;
+
     @Basic
     @Column(name = "end_hour", nullable = false, length = -1)
     private String endHour;
