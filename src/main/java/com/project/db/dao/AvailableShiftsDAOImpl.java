@@ -30,19 +30,32 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .setParameter("shifts_id",id)
                 .getSingleResult();
     }
+    //check all AvailableShifts fields not null
+    public boolean checkNullAvailableShiftsFields(AvailableShifts availableShifts){
+        if(availableShifts.getShiftsId() == null )
+            return false;
+        if(availableShifts.getWeekNumber() == null )
+            return false;
+        if(availableShifts.getDayNumber() == null )
+            return false;
+        if(availableShifts.getStartHour() == null )
+            return false;
+        if(availableShifts.getEndHour() == null )
+            return false;
+        if(availableShifts.getEmpolyeeCount() == null )
+            return false;
+        if(availableShifts.getManagerCount() == null )
+            return false;
+        return true;
+    }
+
+
 
     @Override
     public boolean validate(AvailableShifts availableShifts)  {
 
-        /*
-        // Validate week number
-        if (availableShifts.getWeekNumber() == null   || availableShifts.getDayNumber()==null)
+       if(checkNullAvailableShiftsFields(availableShifts) == false)
             return false;
-
-        // Validate employee count
-        if (availableShifts.getEmpolyeeCount() == null || availableShifts.getManagerCount() == null)
-            return false;
-*/
 
 
         // Validate legal start and end hour

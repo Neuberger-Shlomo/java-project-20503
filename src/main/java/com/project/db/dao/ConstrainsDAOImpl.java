@@ -38,14 +38,34 @@ public class ConstrainsDAOImpl implements ConstrainsDao {
         entityManager.remove(entityManager.merge(constrains));
     }
 
-    @Override
-    public boolean validate(Constrains constrains)  {
-/*
-        // Validate week number
-        if (constrains.getWeekNumber() == null )
+    //check Constrains fields not null
+    public boolean checkNullConstrainsFields(Constrains constrains){
+        if(constrains.getConstraintId() == null )
+            return false;
+        if(constrains.getWeekNumber() == null )
+            return false;
+        if(constrains.getStartDate() == null )
+            return false;
+        if(constrains.getEndDate() == null )
+            return false;
+        if(constrains.getData() == null )
+            return false;
+        if (constrains.getConstraintId() == null)
+            return false;
+        if (constrains.getPermanentFlag()== null)
             return false;
 
-*/
+        return true;
+    }
+
+
+
+    @Override
+    public boolean validate(Constrains constrains)  {
+
+        //check Constrains fields not null
+if(checkNullConstrainsFields(constrains) == false)
+            return false;
         // Validate start date before end date
         if(constrains.getStartDate().compareTo(constrains.getEndDate()) >= 0)
             return false;
