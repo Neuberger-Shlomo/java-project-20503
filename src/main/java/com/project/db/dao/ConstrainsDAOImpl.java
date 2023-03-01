@@ -38,13 +38,13 @@ public class ConstrainsDAOImpl implements ConstrainsDao {
         entityManager.remove(entityManager.merge(constrains));
     }
 
-    public static boolean validate(Constrains constrains)  {
-
+    public boolean validate(Constrains constrains)  {
+/*
         // Validate week number
         if (constrains.getWeekNumber() == null )
             return false;
 
-
+*/
         // Validate start date before end date
         if(constrains.getStartDate().compareTo(constrains.getEndDate()) >= 0)
             return false;
@@ -57,7 +57,7 @@ public class ConstrainsDAOImpl implements ConstrainsDao {
     }
 
     @Override
-    public Constrains getById(int id) {
+    public Constrains getById(long id) {
         return entityManager
                 .createQuery("SELECT c FROM Constrains c WHERE Constrains.constraintId=: constraint_id ORDER BY c.constraintId",Constrains.class)
                 .setParameter("constraint_id",id)

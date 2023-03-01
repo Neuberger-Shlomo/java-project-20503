@@ -13,11 +13,6 @@ import com.project.db.entities.AvailableShifts;
 @Stateless
 public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
 
-// hours in 24 hour format
-    // problem if begin at 23:00 and end at 01:00 in the following day (can be a mistake- (start hour after end hour) or valid shift (that
-    //begin at 23:00 and end at 01:00 in the following day)
-    //consider to add only begining time of shift and for how long it is lasted to calculate end hour
-    // add constraint for max hours for shift? did not see that in constrains table
 
 
 
@@ -29,7 +24,7 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
     }
 
     @Override
-    public AvailableShifts getById(int id) {
+    public AvailableShifts getById(long id) {
         return entityManager
                 .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.shiftsId=: shifts_id ORDER BY p.shiftsId",AvailableShifts.class)
                 .setParameter("shifts_id",id)
@@ -41,8 +36,9 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
     }
 
    //
-    public static boolean validate(AvailableShifts availableShifts)  {
+    public boolean validate(AvailableShifts availableShifts)  {
 
+        /*
         // Validate week number
         if (availableShifts.getWeekNumber() == null   || availableShifts.getDayNumber()==null)
             return false;
@@ -50,9 +46,10 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
         // Validate employee count
         if (availableShifts.getEmpolyeeCount() == null || availableShifts.getManagerCount() == null)
             return false;
+*/
+
 
         // Validate legal start and end hour
-
         if(Integer.parseInt(availableShifts.getStartHour()) <= 0 || Integer.parseInt(availableShifts.getEndHour()) >= 24)
              return false;
 
@@ -90,10 +87,6 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
     //DONE
     @Override
     public void delete(AvailableShifts u) {entityManager.remove(entityManager.merge(u));}
-
-
-
-
 
 }
 

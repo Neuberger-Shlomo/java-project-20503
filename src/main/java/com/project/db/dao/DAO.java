@@ -4,6 +4,7 @@
 package com.project.db.dao;
 
 
+import com.project.db.entities.User;
 import com.sun.istack.internal.Nullable;
 
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,9 @@ public interface DAO <T>{
 
     public void delete(T u);
 
+    public boolean validate(T u);
+
     @Nullable
     public T getById(@NotNull long id);
+
 }

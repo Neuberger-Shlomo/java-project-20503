@@ -15,9 +15,12 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
         this.entityManager = entityManager;
     }
 
+    //to make sure  the constraint level is between 1-3
     final int MAX_CONSTRAINT_LEVEL = 3;
     final int MIN_CONSTRAINT_LEVEL = 1;
+    //make sure that the constraint description is under 100 characters
     final int MAX_CONSTRAINT_DESCRIPTION_LENGTH = 100;
+    //make sure you do not use too much constraint
     final int MAX_CONSTRAINT_TYPE_ID = 9;
     final int MIN_CONSTRAINT_TYPE_ID = 1;
 
@@ -48,14 +51,16 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
             return false;
         return true;
     }
+
     //public boolean validte constraint description
     public boolean validateConstraintDescription(String constraintDescription) {
+
         if (constraintDescription == null || constraintDescription.isEmpty()
                 || constraintDescription.length() > MAX_CONSTRAINT_DESCRIPTION_LENGTH)
             return false;
         return true;
     }
-    private boolean validate(ConstraintType constraintType) {
+    public boolean validate(ConstraintType constraintType) {
         if (constraintType == null) {
             return false;
         }
@@ -91,7 +96,7 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
     }
 
     @Override
-    public ConstraintType getById(int id) {
+    public ConstraintType getById(long id) {
         return entityManager
                 .createQuery("SELECT c FROM ConstraintType c WHERE ConstraintType.typeId=: constraint_type_id ORDER BY c.typeId",ConstraintType.class)
                 .setParameter("constraint_type_id",id)
