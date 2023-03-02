@@ -11,6 +11,7 @@ create table "Constrains"
     start_date     integer not null,
     end_date       integer not null
 );
+
 alter table "Constrains"
     add constraint "Constrains_User_uid_fk"
         foreign key (uid) references "User";

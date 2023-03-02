@@ -18,8 +18,8 @@ public class AvailableShifts {
     private String startHour;
 
     @Basic
-    @Column(name = "end_hour", nullable = false, length = -1)
-    private String endHour;
+    @Column(name = "duration", nullable = false, length = -1)
+    private String duration;
     @Basic
     @Column(name = "empolyee_count", nullable = false)
     private Integer empolyeeCount;
@@ -57,12 +57,12 @@ public class AvailableShifts {
         this.startHour = startHour;
     }
 
-    public String getEndHour() {
-        return endHour;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setEndHour(String endHour) {
-        this.endHour = endHour;
+    public void setDuration(String endHour) {
+        this.duration = duration;
     }
 
     public Integer getEmpolyeeCount() {
@@ -94,12 +94,12 @@ public class AvailableShifts {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AvailableShifts that = (AvailableShifts) o;
-        return Objects.equals(weekNumber, that.weekNumber) && Objects.equals(dayNumber, that.dayNumber) && Objects.equals(startHour, that.startHour) && Objects.equals(endHour, that.endHour) && Objects.equals(empolyeeCount, that.empolyeeCount) && Objects.equals(managerCount, that.managerCount) && Objects.equals(shiftsId, that.shiftsId);
+        return Objects.equals(weekNumber, that.weekNumber) && Objects.equals(dayNumber, that.dayNumber) && Objects.equals(startHour, that.startHour) && Objects.equals(duration, that.duration) && Objects.equals(empolyeeCount, that.empolyeeCount) && Objects.equals(managerCount, that.managerCount) && Objects.equals(shiftsId, that.shiftsId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(weekNumber, dayNumber, startHour, endHour, empolyeeCount, managerCount, shiftsId);
+        return Objects.hash(weekNumber, dayNumber, startHour, duration, empolyeeCount, managerCount, shiftsId);
     }
 
     public Collection<ShiftsRequests> getShiftsRequestsByShiftsId() {
@@ -109,4 +109,7 @@ public class AvailableShifts {
     public void setShiftsRequestsByShiftsId(Collection<ShiftsRequests> shiftsRequestsByShiftsId) {
         this.shiftsRequestsByShiftsId = shiftsRequestsByShiftsId;
     }
+
 }
+
+

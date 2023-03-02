@@ -40,7 +40,13 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
                 .getSingleResult();
     }
 
-
+    @Override
+    public ConstraintType getByTypeId(int typeId) {
+        return entityManager
+                .createQuery("SELECT c FROM ConstraintType c WHERE ConstraintType.typeId=: constraint_type_id ORDER BY c.typeId",ConstraintType.class)
+                .setParameter("constraint_type_id",typeId)
+                .getSingleResult();
+    }
 
 
     public ConstraintType update(ConstraintType constraintType) {
@@ -74,13 +80,9 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
         }
         if (validateConstraintDescription(constraintType.getConstraintDescription())
                 && validateConstraintLevel(constraintType.getConstraintLevel(   ))&& validateConstraintTypeId(constraintType.getTypeId()))
-            return true;
+            return false;
 
-        // If typeId is null, create a default constraint type with default level
-        if (constraintType.getTypeId() == null) {
-            constraintType.setTypeId(7);
-            constraintType.setConstraintLevel(1);
-        }
+
 
         return true;
     }

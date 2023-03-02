@@ -40,7 +40,7 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
             return false;
         if(availableShifts.getStartHour() == null )
             return false;
-        if(availableShifts.getEndHour() == null )
+        if(availableShifts.getDuration() == null )
             return false;
         if(availableShifts.getEmpolyeeCount() == null )
             return false;
@@ -59,12 +59,10 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
 
 
         // Validate legal start and end hour
-        if(Integer.parseInt(availableShifts.getStartHour()) <= 0 || Integer.parseInt(availableShifts.getEndHour()) >= 24)
+        if(Integer.parseInt(availableShifts.getStartHour()) <= 0 || Integer.parseInt(availableShifts.getDuration()) >= 24)
              return false;
+//VALIDATE DURATOIN POSITIVE-----------
 
-        // Validate start and end hour
-        if (Integer.parseInt(availableShifts.getStartHour()) >= Integer.parseInt(availableShifts.getEndHour())   )
-            return false;
         // validate employee count
         if (availableShifts.getEmpolyeeCount() <= 0 || availableShifts.getManagerCount() < 0)
             return false;
@@ -77,26 +75,80 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
     @Override
     public List<AvailableShifts> getAll() {
         return entityManager
-                .createNamedQuery(Queries.ProfileQueries.GET_ALL,AvailableShifts.class)
+                .createQuery("SELECT p FROM AvailableShifts p ORDER BY p.shiftsId",AvailableShifts.class)
                 .getResultList();
     }
 
-//DONE
-    @Override
+    //insert to shift    @Override
     public void insert(AvailableShifts u) {
         if(validate(u))  entityManager.persist(u);
     }
-    //DONE
+   //update shift
     @Override
     public AvailableShifts update(AvailableShifts u) {
 
         if(validate(u)) return entityManager.merge(u);
         else return null;
     }
-    //DONE
+    //delete shift
     @Override
     public void delete(AvailableShifts u) {entityManager.remove(entityManager.merge(u));}
-
+// return all shifts with this week number
+    @Override
+    public List<AvailableShifts> getByWeekNumber(int weekNumber) {
+        return entityManager
+                .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.weekNumber=: week_number ORDER BY p.shiftsId",AvailableShifts.class)
+                .setParameter("week_number",weekNumber)
+                .getResultList();
+    }
+//return all shifts with this day number
+    @Override
+    public List<AvailableShifts> getByDayNumber(int dayNumber) {
+        return entityManager
+                .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.dayNumber=: day_number ORDER BY p.shiftsId",AvailableShifts.class)
+                .setParameter("day_number",dayNumber)
+                .getResultList();
+    }
+    //return all shifts that have duration equal to given duration
+    @Override
+    public List<AvailableShifts> getShiftsByDuration(int duration)  {
+        return entityManager
+                .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.duration=: duration ORDER BY p.shiftsId",AvailableShifts.class)
+                .setParameter("duration",duration)
+                .getResultList();
+    }
+    //return all shifts that have duration less then given duration
+    @Override
+    public List<AvailableShifts> getLessThenDuration(int duration)  {
+        return entityManager
+                .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.duration<=: duration ORDER BY p.shiftsId",AvailableShifts.class)
+                .setParameter("duration",duration)
+                .getResultList();
+    }
+// return all shifts that begin after this hour
+    @Override
+    public List<AvailableShifts> getShiftsBeginAfter(int startHour) {
+        return entityManager
+                .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.startHour>=: start_hour ORDER BY p.shiftsId",AvailableShifts.class)
+                .setParameter("start_hour",startHour)
+                .getResultList();
+    }
+//return all shifts that have this manager count
+    @Override
+    public List<AvailableShifts> getShiftsByManagerCount(int managerCount)  {
+        return entityManager
+                .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.managerCount=: manager_count ORDER BY p.shiftsId",AvailableShifts.class)
+                .setParameter("manager_count",managerCount)
+                .getResultList();
+    }
+//return list of all shifts that have this employee count
+    @Override
+    public List<AvailableShifts> getShiftsByEmployeeCount(int employeeCount)    {
+        return entityManager
+                .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.empolyeeCount=: employee_count ORDER BY p.shiftsId",AvailableShifts.class)
+                .setParameter("employee_count",employeeCount)
+                .getResultList();
+    }
 }
 
 

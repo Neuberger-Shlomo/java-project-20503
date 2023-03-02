@@ -33,6 +33,7 @@ public class Queries {
     }
 
     public class AvailableShiftsQueries {
+        public final static String GET_ALL = "AvailableShifts.GetAll";
 
     }
 

@@ -84,4 +84,56 @@ if(checkNullConstrainsFields(constrains) == false)
                 .setParameter("constraint_id",id)
                 .getSingleResult();
     }
+
+    @Override
+    public List<Constrains> getByWeekNumber(int weekNumber) {
+        return entityManager
+.createQuery("SELECT c FROM Constrains c WHERE Constrains.weekNumber=: week_number ",Constrains.class)
+                .setParameter("week_number",weekNumber)
+                .getResultList();
+    }
+
+    @Override
+    public List<Constrains> getByStartDate(String startDate) {
+    return entityManager
+            .createQuery("SELECT c FROM Constrains c WHERE Constrains.startDate=: start_date ",Constrains.class)
+                .setParameter("start_date",startDate)
+                .getResultList();}
+
+    @Override
+    public List<Constrains> getByEndDate(String endDate) {
+    return entityManager
+        .createQuery("SELECT c FROM Constrains c WHERE Constrains.endDate=: end_date ",Constrains.class)
+                .setParameter("end_date",endDate)
+                .getResultList();    }
+
+    @Override
+    public List<Constrains> getPermanent() {
+    return entityManager
+        .createQuery("SELECT c FROM Constrains c WHERE Constrains.permanentFlag=: permanent_flag ",Constrains.class)
+                .setParameter("permanent_flag",1)
+                .getResultList();
+    }
+    @Override
+    public List<Constrains> getByUid(int uid) {
+    return entityManager
+        .createQuery("SELECT c FROM Constrains c WHERE Constrains.uid=: uid ",Constrains.class)
+                .setParameter("uid",uid)
+                .getResultList();    }
+
+    @Override
+    public List<Constrains> getByTypeId(int typeId) {
+      return entityManager
+        .createQuery("SELECT c FROM Constrains c WHERE Constrains.typeId=: type_id ",Constrains.class)
+                .setParameter("type_id",typeId)
+                .getResultList();
+    }
+    @Override
+    public User getUserByConstraint(Constrains constrains) {
+        return entityManager
+                .createQuery("SELECT u FROM User u WHERE u.uid=: uid",User.class)
+                .setParameter("uid",constrains.getUid())
+                .getSingleResult();
+    }
+
 }
