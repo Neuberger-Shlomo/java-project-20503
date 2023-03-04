@@ -22,10 +22,11 @@ public class UserRS {
     private ProfileDao profileDao;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-    public List<com.project.db.entities.User> listUser(){
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response listUser(){
         logger.debug("A request for all user entered");
-        return userDao.getAllUsers();
+        List users = userDao.getAllUsers();
+        return Response.status(Status.OK).type(MediaType.APPLICATION_JSON).entity(users).build();
     }
 
     @GET

@@ -1,4 +1,4 @@
-create table "User"
+create table "Users"
 (
     username varchar not null,
     uid      integer generated always as identity

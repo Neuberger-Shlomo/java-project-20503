@@ -3,16 +3,18 @@ package com.project.db.entities;
 import com.project.db.dao.Queries;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Table(name = "Users")
 @NamedQueries({
-        @NamedQuery(name = Queries.UserQueries.GET_ALL ,query = "SELECT u FROM User u JOIN FETCH u.profileByPid"),
+        @NamedQuery(name = Queries.UserQueries.GET_ALL ,query = "SELECT u FROM User u"),
         @NamedQuery(name = Queries.UserQueries.GET_PROFILE_BY_ID, query = "SELECT p FROM Profile p where p.pid = :id"),
         @NamedQuery(name = Queries.UserQueries.GET_BY_ID, query = "SELECT u FROM User u WHERE u.uid = :id ORDER BY u.uid"),
 })
-public class User {
+public class User implements Serializable {
     @Basic
     @Column(name = "username", nullable = false, length = -1)
     private String username;
