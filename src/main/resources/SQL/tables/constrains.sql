@@ -8,8 +8,8 @@ create table "Constrains"
     data           integer not null,
     permanent_flag boolean not null,
     week_number    integer not null,
-    start_date     integer not null,
-    end_date       integer not null
+    start_date     timestamp not null,
+    end_date       timestamp not null
 );
 
 alter table "Constrains"
@@ -25,5 +25,18 @@ alter column data type varchar using data::varchar;
 
 alter table "Constrains"
     alter column data set not null;
+alter table "Constrains"
+    drop column start_date;
+
+alter table "Constrains"
+    drop column end_date;
+alter table "Constrains"
+    add start_date timestamp not null;
+
+alter table "Constrains"
+    add end_date timestamp not null;
+
+
+
 
 

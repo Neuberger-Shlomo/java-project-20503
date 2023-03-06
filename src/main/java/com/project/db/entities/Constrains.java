@@ -1,6 +1,7 @@
 package com.project.db.entities;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
     @Entity
@@ -16,7 +17,7 @@ import java.util.Objects;
         @Column(name = "uid", nullable = false)
         private Integer uid;
         @Basic
-        @Column(name = "data", nullable = false)
+        @Column(name = "data", nullable = false, length = -1)
         private String data;
         @Basic
         @Column(name = "permanent_flag", nullable = false)
@@ -26,10 +27,10 @@ import java.util.Objects;
         private Integer weekNumber;
         @Basic
         @Column(name = "start_date", nullable = false)
-        private Integer startDate;
+        private java.sql.Timestamp startDate;
         @Basic
         @Column(name = "end_date", nullable = false)
-        private Integer endDate;
+        private java.sql.Timestamp endDate;
 
     public Integer getConstraintId() {
         return constraintId;
@@ -79,19 +80,19 @@ import java.util.Objects;
         this.weekNumber = weekNumber;
     }
 
-    public Integer getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Integer startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public Integer getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Integer endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 

@@ -14,12 +14,12 @@ public class AvailableShifts {
     @Column(name = "day_number", nullable = false)
     private Integer dayNumber;
     @Basic
-    @Column(name = "start_hour", nullable = false, length = -1)
-    private String startHour;
+    @Column(name = "start_hour", nullable = false)
+    private Integer startHour;
 
     @Basic
-    @Column(name = "duration", nullable = false, length = -1)
-    private String duration;
+    @Column(name = "duration", nullable = false)
+    private Integer duration;
     @Basic
     @Column(name = "empolyee_count", nullable = false)
     private Integer empolyeeCount;
@@ -49,15 +49,15 @@ public class AvailableShifts {
         this.dayNumber = dayNumber;
     }
 
-    public String getStartHour() {
+    public Integer getStartHour() {
         return startHour;
     }
 
-    public void setStartHour(String startHour) {
+    public void setStartHour(int startHour) {
         this.startHour = startHour;
     }
 
-    public String getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 

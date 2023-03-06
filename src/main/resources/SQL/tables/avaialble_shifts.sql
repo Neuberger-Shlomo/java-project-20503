@@ -16,4 +16,7 @@ alter table "Available_shifts"
 alter table "Available_shifts"
 alter column duration type integer using duration::integer;
 
+alter table "Available_shifts"
+    alter column start_hour type int using start_hour::int;
+
 
