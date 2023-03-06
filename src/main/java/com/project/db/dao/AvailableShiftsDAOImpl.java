@@ -22,7 +22,7 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
     public AvailableShiftsDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
+    //return a row of AvailableShift matching parameter id
     @Override
     public AvailableShifts getById(long id) {
         return entityManager
@@ -50,7 +50,10 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
     }
 
 
-
+    /**
+     * Validate AvailableShifts
+     * @param availableShifts AvailableShifts
+     */
     @Override
     public boolean validate(AvailableShifts availableShifts)  {
 
@@ -58,33 +61,42 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
             return false;
 
 
-        // Validate legal start and end hour
-        if(Integer.parseInt(availableShifts.getStartHour()) <= 0 || Integer.parseInt(availableShifts.getDuration()) >= 24)
+        // Validate legal start hour
+        if(availableShifts.getStartHour() <= 0 || availableShifts.getStartHour() >= 24)
+            return false;
+            //validate duration positive
+         if (availableShifts.getDuration() <= 0)
              return false;
-//VALIDATE DURATOIN POSITIVE-----------
-
         // validate employee count
         if (availableShifts.getEmpolyeeCount() <= 0 || availableShifts.getManagerCount() < 0)
             return false;
-        if(availableShifts.getWeekNumber() <= 0)
+        if(availableShifts.getWeekNumber() < 0)
             return false;
 
          return true;
     }
-    //DONE
-    @Override
+
+    /**
+     * Retrive all AvailableShifts
+     * @return list of all AvailableShifts
+     */    @Override
     public List<AvailableShifts> getAll() {
         return entityManager
                 .createQuery("SELECT p FROM AvailableShifts p ORDER BY p.shiftsId",AvailableShifts.class)
                 .getResultList();
     }
 
-    //insert to shift    @Override
-    public void insert(AvailableShifts u) {
+    /**
+     * Insert new AvailableShifts
+     * @param u AvailableShifts
+     */    public void insert(AvailableShifts u) {
         if(validate(u))  entityManager.persist(u);
     }
-   //update shift
-    @Override
+    /**
+     *
+     * @param u AvailableShifts
+     * @return updated AvailableShifts
+     */    @Override
     public AvailableShifts update(AvailableShifts u) {
 
         if(validate(u)) return entityManager.merge(u);
@@ -94,6 +106,11 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
     @Override
     public void delete(AvailableShifts u) {entityManager.remove(entityManager.merge(u));}
 // return all shifts with this week number
+    /**
+     * Retrieve  all shifts that have week number equal to given week number
+     * @param  weekNumber
+     * @return list of all shifts that have week number equal to given week number
+     */
     @Override
     public List<AvailableShifts> getByWeekNumber(int weekNumber) {
         return entityManager
@@ -101,7 +118,11 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .setParameter("week_number",weekNumber)
                 .getResultList();
     }
-//return all shifts with this day number
+    /**
+     * Retrieve  all shifts that have day number equal to given day number
+     * @param dayNumber
+     * @return  list of all shifts that have day number equal to given day number
+     */
     @Override
     public List<AvailableShifts> getByDayNumber(int dayNumber) {
         return entityManager
@@ -110,6 +131,11 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .getResultList();
     }
     //return all shifts that have duration equal to given duration
+    /**
+     * Retrieve  all shifts that have duration equal to given duration
+     * @param duration
+     * @return list of all shifts that have duration equal to given duration
+     */
     @Override
     public List<AvailableShifts> getShiftsByDuration(int duration)  {
         return entityManager
@@ -117,7 +143,11 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .setParameter("duration",duration)
                 .getResultList();
     }
-    //return all shifts that have duration less then given duration
+    /**
+     * Retrieve all shifts that have duration less than given duration
+     * @param duration
+     * @return list of all shifts that have duration less then given duration
+     */
     @Override
     public List<AvailableShifts> getLessThenDuration(int duration)  {
         return entityManager
@@ -125,16 +155,23 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .setParameter("duration",duration)
                 .getResultList();
     }
-// return all shifts that begin after this hour
+    /**
+     * Retrieve all shifts that begin after this hour
+     * @param startHour
+     * @return list of all shifts that begin after this hour
+     */
     @Override
-    public List<AvailableShifts> getShiftsBeginAfter(int startHour) {
+    public List<AvailableShifts> getShiftsBeginAfterHour(int startHour) {
         return entityManager
                 .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.startHour>=: start_hour ORDER BY p.shiftsId",AvailableShifts.class)
                 .setParameter("start_hour",startHour)
                 .getResultList();
     }
-//return all shifts that have this manager count
-    @Override
+    /**
+     * Retrieve all shifts that have this manager count
+     * @param managerCount
+     * @return list of all shifts that have this manager count
+     */    @Override
     public List<AvailableShifts> getShiftsByManagerCount(int managerCount)  {
         return entityManager
                 .createQuery("SELECT p FROM AvailableShifts p WHERE AvailableShifts.managerCount=: manager_count ORDER BY p.shiftsId",AvailableShifts.class)
@@ -142,6 +179,11 @@ public class AvailableShiftsDAOImpl implements AvailableShiftsDao  {
                 .getResultList();
     }
 //return list of all shifts that have this employee count
+    /**
+     * Retrieve all shifts that have this employee count
+     * @param    employeeCount
+     * @return  list of all shifts that have this employee count
+     */
     @Override
     public List<AvailableShifts> getShiftsByEmployeeCount(int employeeCount)    {
         return entityManager

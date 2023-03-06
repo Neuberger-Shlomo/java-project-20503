@@ -1,20 +1,15 @@
-package com.project.db.dao;
-import com.project.db.entities.*;
+package com.project.db.services;
 
-import java.util.List;
+import com.project.db.entities.ConstraintType;
 
-public interface ConstrainsTypeDao extends DAO<ConstraintType> {
+import javax.ejb.Local;
 
-    //get constraint level by type id
-
+@Local
+public interface ConstrainsTypeService {
     public int getConstraintLevelByTypeId(int typeId);
 
     //get constraint level by id
     public ConstraintType getById(long id);
-
-
-
-
 
     //validate constraint level
     public boolean validateConstraintLevel(int constraintLevel);

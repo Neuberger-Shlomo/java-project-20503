@@ -25,48 +25,67 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
     final int MIN_CONSTRAINT_TYPE_ID = 1;
 
 
-    // get constraint level by type id
-    public int getConstraintLevelByTypeId(int typeId) {
+    /**
+     * Retrive all the constraint types
+     * @param typeId
+     * @return List of constraint types
+     */
+         public int getConstraintLevelByTypeId(int typeId) {
         return entityManager
                 .createQuery("SELECT c FROM ConstraintType c WHERE ConstraintType.typeId=: constraint_type_id ORDER BY c.typeId",ConstraintType.class)
                 .setParameter("constraint_type_id",typeId)
                 .getSingleResult().getConstraintLevel();
     }
-    @Override
-    public ConstraintType getById(long id) {
-        return entityManager
-                .createQuery("SELECT c FROM ConstraintType c WHERE ConstraintType.typeId=: constraint_type_id ORDER BY c.typeId",ConstraintType.class)
-                .setParameter("constraint_type_id",id)
-                .getSingleResult();
-    }
 
+    /**
+     * Retrive  constraint type matching parameter typeId
+     * @param typeId
+     * @return constraint type
+     */
     @Override
-    public ConstraintType getByTypeId(int typeId) {
+    public ConstraintType getById(long typeId) {
         return entityManager
                 .createQuery("SELECT c FROM ConstraintType c WHERE ConstraintType.typeId=: constraint_type_id ORDER BY c.typeId",ConstraintType.class)
                 .setParameter("constraint_type_id",typeId)
                 .getSingleResult();
     }
 
-
+    /**
+     *  update constraint type
+     * @param   constraintType
+     * @return   updated constraintType
+     */
     public ConstraintType update(ConstraintType constraintType) {
         if (validate(constraintType))
             return entityManager.merge(constraintType);
         return null;
     }
+    /**
+        * validate MIN_CONSTRAINT_LEVEL <=constraint level<=MAX_CONSTRAINT_LEVEL
+        * @param constraintLevel
+        * @return true if valid
+     */
     public boolean validateConstraintLevel(int constraintLevel) {
         if (constraintLevel < MIN_CONSTRAINT_LEVEL || constraintLevel > MAX_CONSTRAINT_LEVEL)
             return false;
         return true;
     }
     //public boolean validte constraint type id
+    /**
+     *  validate MIN_CONSTRAINT_TYPE_ID <= type id<=MAX_CONSTRAINT_TYPE_ID
+     * @param constraintTypeId
+     * @return true if valid
+     */
     public boolean validateConstraintTypeId(int constraintTypeId) {
         if (constraintTypeId < MIN_CONSTRAINT_TYPE_ID || constraintTypeId > MAX_CONSTRAINT_TYPE_ID)
             return false;
         return true;
     }
-
-    //public boolean validte constraint description
+    /**
+     * validate constraint description STRING
+     * @param constraintDescription
+     * @return true if valid
+     */
     public boolean validateConstraintDescription(String constraintDescription) {
 
         if (constraintDescription == null || constraintDescription.isEmpty()
@@ -74,29 +93,44 @@ public class ConstrainsTypeDaoImpl implements ConstrainsTypeDao {
             return false;
         return true;
     }
+    /**
+     *  validate constraint type
+     * @param   constraintType
+     * @return  true if valid
+     */
     public boolean validate(ConstraintType constraintType) {
         if (constraintType == null) {
             return false;
         }
         if (validateConstraintDescription(constraintType.getConstraintDescription())
-                && validateConstraintLevel(constraintType.getConstraintLevel(   ))&& validateConstraintTypeId(constraintType.getTypeId()))
+                && validateConstraintLevel(constraintType.getConstraintLevel())&& validateConstraintTypeId(constraintType.getTypeId()))
             return false;
 
 
 
         return true;
     }
+    /**
+     *  Retrive all the constraint types
+     * @return List of constraint types
+     */
     @Override
     public List<ConstraintType> getAll() {
         String query = "SELECT c FROM ConstraintType c";
         return entityManager.createQuery(query, ConstraintType.class).getResultList();
     }
+    /**
+     * insert constraint type
+     * @param  u Constraint type
+     */
     @Override
     public void insert(ConstraintType u) {
         if(validate(u))  entityManager.persist(u);
     }
-    //DONE
-
+    /**
+     * delete constraint type
+     * @param  u Constraint type
+     */
     //DONE
     @Override
     public void delete(ConstraintType u) {entityManager.remove(entityManager.merge(u));

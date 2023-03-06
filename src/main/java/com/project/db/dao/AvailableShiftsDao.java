@@ -17,7 +17,7 @@ public List<AvailableShifts> getShiftsByDuration(int duration);
 //get all shifts with duration equal or last then given time
 public List<AvailableShifts> getLessThenDuration(int duration);
 //get all shifts begin at or after start hour
-public List<AvailableShifts> getShiftsBeginAfter(int startHour);
+public List<AvailableShifts> getShiftsBeginAfterHour(int startHour);
 //get all shifts with manager count equal to parameter
 public List<AvailableShifts> getShiftsByManagerCount(int managerCount);
 //get all shifts with employee count equal to parameter
