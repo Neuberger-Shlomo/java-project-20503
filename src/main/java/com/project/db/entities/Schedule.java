@@ -1,9 +1,17 @@
 package com.project.db.entities;
 
+import com.project.db.dao.Queries;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Queries.ScheduleQueries.GET_ALL ,query = "SELECT s FROM Schedule s"),
+        @NamedQuery(name = Queries.ScheduleQueries.GET_BY_ID, query = "SELECT s FROM Schedule s WHERE s.scheduleId = :id ORDER BY s.scheduleId"),
+        @NamedQuery(name = Queries.ScheduleQueries.GET_BY_WEEK, query = "SELECT s FROM Schedule s WHERE s.weekNumber = :week"),
+        @NamedQuery(name = Queries.ScheduleQueries.GET_BY_REQUEST, query = "SELECT s FROM Schedule s WHERE s.requestId = :reqId ORDER BY s.requestId"),
+})
 public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -13,7 +21,7 @@ public class Schedule {
     @Column(name = "week_number", nullable = false)
     private Integer weekNumber;
     @Basic
-    @Column(name = "request_id", nullable = false)
+    @Column(name = "request_id", nullable = false, updatable = false, insertable = false)
     private Integer requestId;
     @ManyToOne
     @JoinColumn(name = "request_id", referencedColumnName = "Request_id", nullable = false)

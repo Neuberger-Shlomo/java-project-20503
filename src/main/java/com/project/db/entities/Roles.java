@@ -1,10 +1,18 @@
 package com.project.db.entities;
 
+import com.project.db.dao.Queries;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Queries.RolesQueries.GET_ALL ,query = "SELECT r FROM Roles r"),
+        @NamedQuery(name = Queries.RolesQueries.GET_BY_ID, query = "SELECT r FROM Roles r where r.roleId = :id"),
+        @NamedQuery(name = Queries.RolesQueries.GET_BY_LEVEL, query = "SELECT r FROM Roles r where r.roleLevel = :level"),
+        @NamedQuery(name = Queries.RolesQueries.GET_BY_NAME, query = "SELECT r FROM Roles r WHERE r.roleName = :name ORDER BY r.roleName"),
+})
 public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
