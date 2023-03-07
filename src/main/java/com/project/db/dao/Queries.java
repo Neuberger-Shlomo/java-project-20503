@@ -1,6 +1,12 @@
 package com.project.db.dao;
 
 
+import com.project.db.entities.AvailableShifts;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
 public class Queries {
     public static class UserQueries{
         /**
@@ -26,4 +32,22 @@ public class Queries {
 
     }
 
-}
+    public class AvailableShiftsQueries {
+        public final static String GET_ALL = "AvailableShifts.GetAll";
+
+    }
+
+    public static class ConstrainsQueries{
+
+    }
+    public static class ConstrainsTypeQueries{
+
+    }
+
+
+
+
+
+    }
+
+

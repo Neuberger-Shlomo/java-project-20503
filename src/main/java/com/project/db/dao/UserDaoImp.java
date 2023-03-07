@@ -26,7 +26,7 @@ public class UserDaoImp implements UserDao{
     @Override
     public List<User> getAll() {
         return entityManager
-                .createNamedQuery(Queries.UserQueries.GET_ALL, User.class)
+                .createNamedQuery(Queries.UserQueries.GET_ALL,   User.class)
                 .getResultList();
     }
 

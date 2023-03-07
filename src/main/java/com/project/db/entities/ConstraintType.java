@@ -6,6 +6,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "Constraint_type", schema = "public", catalog = "project")
 public class ConstraintType {
+
+
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "type_id", nullable = false)
@@ -21,9 +24,6 @@ public class ConstraintType {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
 
     public Integer getConstraintLevel() {
         return constraintLevel;
@@ -33,6 +33,21 @@ public class ConstraintType {
         this.constraintLevel = constraintLevel;
     }
 
+// added code****************************************************
+    public static final int DEFAULT_CONSTRAINT_LEVEL = 1;
+    public static final String DEFAULT_CONSTRAINT_DESCRIPTION = "Default Constraint Type";
+
+    // Default constructor for JPA
+    public ConstraintType() {
+        this(DEFAULT_CONSTRAINT_LEVEL, DEFAULT_CONSTRAINT_DESCRIPTION);
+    }
+    // Constructor with both fields
+    public ConstraintType(int constraintLevel, String constraintDescription) {
+        this.constraintLevel = constraintLevel;
+        this.constraintDescription = constraintDescription;
+    }
+    // end of added code****************************************************
+
     public String getConstraintDescription() {
         return constraintDescription;
     }
@@ -41,16 +56,29 @@ public class ConstraintType {
         this.constraintDescription = constraintDescription;
     }
 
+
+
+    // Implement the equals function for ConstraintType objects
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ConstraintType that = (ConstraintType) o;
-        return Objects.equals(typeId, that.typeId) && Objects.equals(constraintLevel, that.constraintLevel) && Objects.equals(constraintDescription, that.constraintDescription);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        ConstraintType that = (ConstraintType) obj;
+        return Objects.equals(typeId, that.typeId) &&
+                Objects.equals(constraintLevel, that.constraintLevel) &&
+                Objects.equals(constraintDescription, that.constraintDescription);
     }
+
 
     @Override
     public int hashCode() {
         return Objects.hash(typeId, constraintLevel, constraintDescription);
+    }
+
+    public void setTypeId(int i) {
     }
 }

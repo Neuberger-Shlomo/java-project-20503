@@ -10,4 +10,13 @@ create table "Available_shifts"
         constraint "Available_shifts_pk"
             primary key
 );
+alter table "Available_shifts"
+    rename column end_hour to duration;
+
+alter table "Available_shifts"
+alter column duration type integer using duration::integer;
+
+alter table "Available_shifts"
+    alter column start_hour type int using start_hour::int;
+
 
