@@ -81,7 +81,7 @@ public class Queries {
         public final static String GET_USER = "ShiftRequests.GetUser";
         public final static String GET_BY_TIMESTAMP = "ShiftRequests.GetByTimestamp";
     }
-    public class AvailableShiftsQueries {
+    public static class AvailableShiftsQueries {
         public final static String GET_ALL = "AvailableShifts.GetAll";
 
     }
