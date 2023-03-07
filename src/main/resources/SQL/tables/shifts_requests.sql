@@ -9,6 +9,6 @@ create table "Shifts_requests"
     uid          integer   not null
         constraint "Shifts_requests_User_uid_fk"
             references "User",
-    time_stamp   timestamp not null
+    time_stamp   timestamp not null default(current_timestamp)
 );
 

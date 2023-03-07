@@ -1,11 +1,22 @@
 package com.project.db.entities;
 
+import com.project.db.dao.Queries;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Queries.ShiftsRequestsQueries.GET_ALL ,query = "SELECT sr FROM ShiftsRequests sr"),
+        @NamedQuery(name = Queries.ShiftsRequestsQueries.GET_BY_ID, query = "SELECT sr FROM ShiftsRequests sr WHERE sr.requestId = :id"),
+        @NamedQuery(name = Queries.ShiftsRequestsQueries.GET_BY_SHIFT_ID, query = "SELECT sr FROM ShiftsRequests sr WHERE sr.shiftId = :id"),
+        @NamedQuery(name = Queries.ShiftsRequestsQueries.GET_BY_UID, query = "SELECT sr FROM ShiftsRequests sr WHERE sr.uid = :id"),
+        @NamedQuery(name = Queries.ShiftsRequestsQueries.GET_BY_TIMESTAMP, query = "SELECT s FROM ShiftsRequests s WHERE s.timeStamp = :time ORDER BY s.requestId"),
+        @NamedQuery(name = Queries.ShiftsRequestsQueries.GET_USER, query = "SELECT u FROM User u WHERE u.uid = :id"),
+        @NamedQuery(name = Queries.ShiftsRequestsQueries.GET_SHIFT, query = "SELECT a FROM AvailableShifts a WHERE a.shiftsId = :id"),
+})
 @Table(name = "Shifts_requests", schema = "public", catalog = "project")
 public class ShiftsRequests {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
